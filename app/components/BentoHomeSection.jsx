@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import Background1Pic from "../assets/background1-pic.webp";
+import Background1Pic from "../assets/background1-pic.png";
 import Background2Pic from "../assets/background2-pic.jpg";
 import Background3Pic from "../assets/background3-pic.png";
 import Background4Pic from "../assets/background4-pic.png";
@@ -56,15 +56,17 @@ const BentoHomeSection = () => {
             {/* Product Image */}
             <div
               className="absolute right-24 bottom-0 w-1/2 h-full
-              transition-transform duration-500 group-hover:scale-105"
+  transition-transform duration-500 group-hover:scale-105"
             >
               <div className="relative h-full w-full">
                 <div className="absolute inset-0" />
                 <Image
                   src={Background1Pic}
-                  alt="Red hoodie outfit"
+                  alt="White hoodie"
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  quality={100}
+                  className="object-cover object-center"
                   priority
                 />
               </div>
@@ -76,10 +78,12 @@ const BentoHomeSection = () => {
             <div className="absolute inset-0">
               <Image
                 src={Background2Pic}
-                alt="Fashion style background"
+                alt="Girl in a summer dress"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={80}
               />
             </div>
 
