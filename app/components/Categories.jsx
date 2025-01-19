@@ -1,5 +1,7 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -53,52 +55,67 @@ const Categories = () => {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`
-                  px-8 py-3 rounded-full uppercase text-md transition-colors
+                  px-8 py-3 rounded-full uppercase text-md relative
                   ${
                     activeTab === tab
                       ? "bg-black text-white"
-                      : "bg-none text-black border border-gray-200/80 hover:bg-gray-100/80"
+                      : "bg-white text-black border border-gray-200 hover:bg-gray-50"
                   }
                 `}
               >
+                {activeTab === tab && (
+                  <div
+                    layoutid="activeTab"
+                    className="absolute inset-0  rounded-full -z-10"
+                  />
+                )}
                 {tab}
               </button>
             ))}
           </div>
         </div>
-        {/* Product cards */}
-        <div className="grid grid-cols-4 gap-4">
-          {getDisplayCategories().map((category, index) => (
-            <div
-              key={index}
-              className="relative bg-[#dedede] border border-gray-400/20 rounded-3xl overflow-hidden cursor-pointer"
-            >
-              <div className="flex justify-center">
-                <div
-                  className={`relative ${index === 1 ? "w-48" : "w-40"}`}
-                  style={{
-                    paddingBottom: "66.67%",
-                    marginTop: index === 2 ? "-1rem" : "0",
-                  }}
-                >
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    priority={index < 4}
-                  />
-                </div>
-                <div className="absolute bottom-5 left-4">
-                  <span className="bg-white px-4 py-3 rounded-full text-sm font-medium uppercase">
-                    {category.name}
-                  </span>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="grid grid-cols-4 gap-4"
+          >
+            {getDisplayCategories().map((category, index) => (
+              <div
+                key={index}
+                className="relative bg-[#dedede] border border-gray-400/20 rounded-3xl overflow-hidden cursor-pointer group"
+              >
+                <div className="flex justify-center">
+                  <div
+                    className={`relative ${index === 1 ? "w-48" : "w-40"}`}
+                    style={{
+                      paddingBottom: "66.67%",
+                      marginTop: index === 2 ? "-1rem" : "0",
+                    }}
+                  >
+                    <Image
+                      src={category.image}
+                      alt={category.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      priority={index < 4}
+                    />
+                  </div>
+                  <div className="absolute bottom-5 left-4">
+                    <span className="inline-flex items-center bg-white px-4 py-3 rounded-full text-sm font-medium uppercase transition-transform group-hover:translate-x-1">
+                      {category.name}
+                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div className="w-full h-px bg-gray-300/60 mt-16"></div>
     </section>

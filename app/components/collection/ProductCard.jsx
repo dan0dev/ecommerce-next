@@ -1,5 +1,5 @@
 import defaultImage from "@/public/collection/defaultImage.png";
-import { Check, Heart, ShoppingCart } from "lucide-react";
+import { ArrowRight, Check, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -10,23 +10,21 @@ const ProductCard = ({ product, index, isFavorite, onFavoriteToggle }) => {
     "bg-gradient-to-br from-[#9d9d9d] via-[#c7c7c7] to-[#e8e8e8]",
     "bg-gradient-to-br from-gray-400 via-gray-200 to-gray-400",
     "bg-gradient-to-br from-[#828385] via-[#abadae] to-[#e1e5e6]",
-    "bg-gradient-to-br from-gray-100 via-gray-300 to-gray-600",
+    "bg-gradient-to-br from-gray-100 via-gray-300 to-gray-600]",
   ];
 
   const handleCartClick = (e) => {
     e.stopPropagation();
     setClicked(true);
-
-    // Reset after 3 seconds
     setTimeout(() => {
       setClicked(false);
     }, 1500);
   };
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 group">
       <div
-        className={`relative border border-gray-300/80 rounded-3xl cursor-pointer aspect-[4/5] group ${
+        className={`relative border border-gray-300/80 rounded-3xl cursor-pointer aspect-[4/5] transform transition-transform duration-200 group-hover:scale-[1.01] shadow-sm group-hover:shadow-md ${
           gradients[index % gradients.length]
         }`}
       >
@@ -52,7 +50,7 @@ const ProductCard = ({ product, index, isFavorite, onFavoriteToggle }) => {
           {clicked ? (
             <Check className="w-5 h-5 text-white transition-all" />
           ) : (
-            <ShoppingCart className="w-5 h-5 text-white active:text-red-400 transition-all" />
+            <ShoppingCart className="w-5 h-5 text-white hover:text-blue-400 transition-all" />
           )}
         </button>
         <div className="relative w-full h-full">
@@ -76,7 +74,13 @@ const ProductCard = ({ product, index, isFavorite, onFavoriteToggle }) => {
         </div>
       </div>
       <div className="space-y-1">
-        <h3 className="font-medium text-lg">{product.name}</h3>
+        <div className="flex items-start justify-between">
+          <h3 className="font-medium text-lg">{product.name}</h3>
+          <span className="flex items-center gap-1 text-sm text-blue-600 cursor-pointer group/details">
+            View details
+            <ArrowRight className="w-4 h-4 transition-transform group-hover/details:translate-x-1" />
+          </span>
+        </div>
         <p className="text-gray-600">${product.price}</p>
         <div className="space-y-1 text-sm text-gray-500">
           <p>{product.materials[0]}</p>
