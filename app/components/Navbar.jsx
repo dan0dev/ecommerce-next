@@ -12,7 +12,7 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
-    <section className="w-full sticky top-0 z-50">
+    <section className="w-full sticky top-0 z-50 bg-[#fafafa]">
       <div className="max-w-screen-xl mx-auto px-4">
         <header className="py-4 relative">
           <nav className="flex items-center justify-between">
