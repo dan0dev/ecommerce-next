@@ -7,7 +7,7 @@ import Background4Pic from "../assets/background4-pic.png";
 
 const BentoHomeSection = () => {
   return (
-    <section className="w-full py-6">
+    <section className="w-full py-4">
       <div className="max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Left Card */}

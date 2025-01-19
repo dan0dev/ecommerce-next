@@ -36,7 +36,7 @@ const Topbar = () => {
   };
 
   return (
-    <section className="w-full py-2 relative">
+    <section className="w-full pt-4 relative">
       <div className="max-w-screen-xl mx-auto px-4">
         {/* Scrolling */}
         {showLeftScroll && (

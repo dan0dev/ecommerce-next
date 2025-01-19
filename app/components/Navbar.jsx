@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { Search, X } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-import Avatar from "../assets/avatar.jpg";
-import Logo from "../assets/logo.png";
+import { Search, X } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import { HiOutlineShoppingBag } from 'react-icons/hi2';
+import Avatar from '../assets/avatar.jpg';
+import Logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
-    <section className="w-full sticky top-0 z-50 bg-[#fafafa]">
+    <section className="w-full sticky top-0 z-50 bg-[#fafafa] border-y border-gray-200">
       <div className="max-w-screen-xl mx-auto px-4">
         <header className="py-4 relative">
           <nav className="flex items-center justify-between">
