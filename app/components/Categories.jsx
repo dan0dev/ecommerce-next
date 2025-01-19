@@ -43,19 +43,20 @@ const Categories = () => {
   };
 
   return (
-    <section className="w-full py-6">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl tracking-wide font-medium">
+    <section className="w-full py-4 sm:py-6">
+      <div className="container mx-auto px-6 lg:px-0">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-8 mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl tracking-wide font-medium">
             Browse by categories
           </h1>
-          <div className="flex space-x-2">
+          <div className="flex flex-wrap gap-2 sm:space-x-2">
             {Object.keys(CATEGORY_DATA).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`
-                  px-8 py-3 rounded-full uppercase text-md relative
+                  px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-md uppercase
+                  relative flex-1 sm:flex-none
                   ${
                     activeTab === tab
                       ? "bg-black text-white"
@@ -66,7 +67,7 @@ const Categories = () => {
                 {activeTab === tab && (
                   <div
                     layoutid="activeTab"
-                    className="absolute inset-0  rounded-full -z-10"
+                    className="absolute inset-0 rounded-full -z-10"
                   />
                 )}
                 {tab}
@@ -81,7 +82,7 @@ const Categories = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="grid grid-cols-4 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
           >
             {getDisplayCategories().map((category, index) => (
               <div
@@ -90,7 +91,9 @@ const Categories = () => {
               >
                 <div className="flex justify-center">
                   <div
-                    className={`relative ${index === 1 ? "w-48" : "w-40"}`}
+                    className={`relative ${
+                      index === 1 ? "w-36 sm:w-48" : "w-32 sm:w-40"
+                    }`}
                     style={{
                       paddingBottom: "66.67%",
                       marginTop: index === 2 ? "-1rem" : "0",
@@ -101,14 +104,14 @@ const Categories = () => {
                       alt={category.name}
                       fill
                       className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       priority={index < 4}
                     />
                   </div>
-                  <div className="absolute bottom-5 left-4">
-                    <span className="inline-flex items-center bg-white px-4 py-3 rounded-full text-sm font-medium uppercase transition-transform group-hover:translate-x-1">
+                  <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-4">
+                    <span className="inline-flex items-center bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium uppercase transition-transform group-hover:translate-x-1">
                       {category.name}
-                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
                 </div>
@@ -117,7 +120,7 @@ const Categories = () => {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="w-full h-px bg-gray-300/60 mt-16"></div>
+      <div className="w-full h-px bg-gray-300/60 mt-8 sm:mt-16"></div>
     </section>
   );
 };
