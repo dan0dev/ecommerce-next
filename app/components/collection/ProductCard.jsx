@@ -1,10 +1,11 @@
 import defaultImage from "@/public/collection/defaultImage.png";
 import { ArrowRight, Check, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ProductCard = ({ product, index, isFavorite, onFavoriteToggle }) => {
   const [clicked, setClicked] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const gradients = [
     "bg-gradient-to-br from-[#9d9d9d] via-[#c7c7c7] to-[#e8e8e8]",
@@ -13,13 +14,25 @@ const ProductCard = ({ product, index, isFavorite, onFavoriteToggle }) => {
     "bg-gradient-to-br from-gray-100 via-gray-300 to-gray-600]",
   ];
 
-  const handleCartClick = (e) => {
-    e.stopPropagation();
-    setClicked(true);
+  const handleCartClick = () => {
+    setClicked(true); // Gomb animáció indítása
+    setShowToast(true); // Toast megjelenítése
+
     setTimeout(() => {
-      setClicked(false);
-    }, 1500);
+      setClicked(false); // Gomb animáció visszaállítása
+    }, 3000); // 1,5 másodperc
   };
+
+  // Toast eltüntetése 3 másodperc után
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false); // Toast eltávolítása
+      }, 3000);
+
+      return () => clearTimeout(timer); // Tisztítás, ha a komponens elhagyja a DOM-ot
+    }
+  }, [showToast]);
 
   return (
     <div className="flex flex-col space-y-4 group">
@@ -53,6 +66,7 @@ const ProductCard = ({ product, index, isFavorite, onFavoriteToggle }) => {
             <ShoppingCart className="w-5 h-5 text-white hover:text-blue-400 transition-all" />
           )}
         </button>
+        {showToast && <div className="toast">Ez egy toast értesítés!</div>}
         <div className="relative w-full h-full">
           <div className="relative w-full h-full p-4">
             <Image
