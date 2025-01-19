@@ -18,9 +18,9 @@ const CATEGORY_DATA = {
   ],
   Men: [
     { name: "Shoes", image: "/category/men1.png" },
-    { name: "Jewelry", image: "/api/placeholder/600/400" },
-    { name: "Bag", image: "/api/placeholder/600/400" },
-    { name: "T-Shirt", image: "/api/placeholder/600/400" },
+    { name: "Jewelry", image: "/category/men2.png" },
+    { name: "Bag", image: "/category/men3.png" },
+    { name: "T-Shirt", image: "/category/men4.png" },
   ],
   Kids: [
     { name: "Shoes", image: "/api/placeholder/600/400" },
@@ -42,9 +42,9 @@ const Categories = () => {
 
   return (
     <section className="w-full py-6">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-5xl tracking-wide font-medium">
+          <h1 className="text-4xl tracking-wide font-medium">
             Browse by categories
           </h1>
           <div className="flex space-x-2">
@@ -100,6 +100,7 @@ const Categories = () => {
           ))}
         </div>
       </div>
+      <div className="w-full h-px bg-gray-300/60 mt-16"></div>
     </section>
   );
 };
