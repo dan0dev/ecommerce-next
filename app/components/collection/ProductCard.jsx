@@ -1,27 +1,27 @@
-import defaultImage from "@/public/collection/defaultImage.png";
-import { ArrowRight, Check, Heart, ShoppingCart } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
+import defaultImage from '@/public/collection/defaultImage.png';
+import { ArrowRight, Check, Heart, ShoppingCart } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useCartStore } from '../../store/cartStore';
 
-const ProductCard = ({
-  product,
-  index,
-  isFavorite,
-  onFavoriteToggle,
-  onAddToCart,
-}) => {
+const ProductCard = ({ product, index, isFavorite, onFavoriteToggle, onAddToCart }) => {
   const [clicked, setClicked] = useState(false);
 
   const gradients = [
-    "bg-gradient-to-br from-[#9d9d9d] via-[#c7c7c7] to-[#e8e8e8]",
-    "bg-gradient-to-br from-gray-400 via-gray-200 to-gray-400",
-    "bg-gradient-to-br from-[#828385] via-[#abadae] to-[#e1e5e6]",
-    "bg-gradient-to-br from-gray-100 via-gray-300 to-gray-600]",
+    'bg-gradient-to-br from-[#9d9d9d] via-[#c7c7c7] to-[#e8e8e8]',
+    'bg-gradient-to-br from-gray-400 via-gray-200 to-gray-400',
+    'bg-gradient-to-br from-[#828385] via-[#abadae] to-[#e1e5e6]',
+    'bg-gradient-to-br from-gray-100 via-gray-300 to-gray-600]',
   ];
 
+  const addToCart = useCartStore((state) => state.addToCart);
+
   const handleCartClick = () => {
+    if (clicked) return;
+
     setClicked(true);
-    onAddToCart();
+    onAddToCart(product);
+    addToCart();
     setTimeout(() => setClicked(false), 3000);
   };
 
@@ -38,18 +38,21 @@ const ProductCard = ({
             onFavoriteToggle(index);
           }}
           className={`absolute top-1.5 sm:top-2 right-10 sm:right-12 z-10 p-1.5 sm:p-2 rounded-full backdrop-blur-md transition-colors ${
-            isFavorite ? "bg-red-500/90" : "bg-gray-500/60"
+            isFavorite ? 'bg-red-500/90' : 'bg-gray-500/60'
           }`}
         >
           <Heart
             className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${
-              isFavorite ? "text-white" : "text-white/80 hover:text-red-400"
+              isFavorite ? 'text-white' : 'text-white/80 hover:text-red-400'
             }`}
           />
         </button>
         <button
           onClick={handleCartClick}
-          className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 z-10 p-1.5 sm:p-2 rounded-full backdrop-blur-md transition-colors bg-gray-500/60"
+          disabled={clicked}
+          className={`absolute top-1.5 sm:top-2 right-1.5 sm:right-2 z-10 p-1.5 sm:p-2 rounded-full backdrop-blur-md transition-colors ${
+            clicked ? 'bg-gray-400/60' : 'bg-gray-500/60'
+          }`}
         >
           {clicked ? (
             <Check className="w-4 h-4 sm:w-5 sm:h-5 text-white transition-all" />
@@ -57,9 +60,6 @@ const ProductCard = ({
             <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-white hover:text-blue-400 transition-all" />
           )}
         </button>
-        {/* !!!!  */}
-        <button className="bg-white p-2 rounded-xl">Számláló</button>
-        {/* !!!!  */}
         <div className="relative w-full h-full">
           <div className="relative w-full h-full p-2 sm:p-4">
             <Image
@@ -73,9 +73,9 @@ const ProductCard = ({
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-xl rounded-br-xl sm:rounded-bl-2xl sm:rounded-br-2xl">
             <div className="text-white text-xs sm:text-sm space-y-0.5 sm:space-y-1">
-              <p>{product.materials.join(" • ")}</p>
-              <p>Colors: {product.colors.join(", ")}</p>
-              <p>Sizes: {product.sizes.join(", ")}</p>
+              <p>{product.materials.join(' • ')}</p>
+              <p>Colors: {product.colors.join(', ')}</p>
+              <p>Sizes: {product.sizes.join(', ')}</p>
             </div>
           </div>
         </div>

@@ -1,18 +1,16 @@
-"use client";
-import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useState } from "react";
-import { COLLECTION_DATA } from "./collectionData";
-import ProductCard from "./ProductCard";
-import Toast from "./Toast";
+'use client';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useState } from 'react';
+import { COLLECTION_DATA } from './collectionData';
+import ProductCard from './ProductCard';
+import Toast from './Toast';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
 const Collections = () => {
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState('All');
   const [favorites, setFavorites] = useState({});
   const [toasts, setToasts] = useState([]);
-  const [clickCount, setClickCount] = useState(0);
-  const [isBlocked, setIsBlocked] = useState(false);
   const [lastAddedProduct, setLastAddedProduct] = useState(null);
 
   const products = COLLECTION_DATA[activeTab];
@@ -45,46 +43,17 @@ const Collections = () => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   };
 
-  const handleAddToCart = useCallback(
-    (product) => {
-      if (isBlocked) {
-        addToast("Please wait 5 seconds before adding more items.", true);
-        return;
-      }
-
-      setLastAddedProduct(product);
-
-      setClickCount((prev) => {
-        const newCount = prev + 1;
-
-        if (newCount >= 3) {
-          setIsBlocked(true);
-          setTimeout(() => {
-            setIsBlocked(false);
-            setClickCount(0);
-          }, 5000);
-        }
-
-        return newCount;
-      });
-
-      addToast(
-        `${product.name} has been added to your cart.`,
-        false,
-        "Added to Cart"
-      );
-    },
-    [isBlocked]
-  );
+  const handleAddToCart = useCallback((product) => {
+    setLastAddedProduct(product);
+    addToast(`${product.name} has been added to your cart.`, false, 'Added to Cart');
+  }, []);
 
   return (
     <section className="w-full py-4 sm:py-6">
       <div className="container mx-auto px-6 lg:px-0">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-8 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl tracking-wide">
-              New Collection
-            </h1>
+            <h1 className="text-2xl sm:text-3xl tracking-wide">New Collection</h1>
           </div>
 
           <div className="flex flex-wrap gap-2 sm:space-x-2">
@@ -94,8 +63,8 @@ const Collections = () => {
                 onClick={() => setActiveTab(tab)}
                 className={`px-4 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-md uppercase transition-colors flex-1 sm:flex-none ${
                   activeTab === tab
-                    ? "bg-black text-white"
-                    : "bg-none text-black border border-gray-200/80 hover:bg-gray-100/80"
+                    ? 'bg-black text-white'
+                    : 'bg-none text-black border border-gray-200/80 hover:bg-gray-100/80'
                 }`}
               >
                 {tab}

@@ -1,15 +1,18 @@
-'use client';
+"use client";
 
-import { Search, X } from 'lucide-react';
-import Image from 'next/image';
-import { useState } from 'react';
-import { HiOutlineShoppingBag } from 'react-icons/hi2';
-import Avatar from '../assets/avatar.jpg';
-import Logo from '../assets/logo.png';
+import { Search, X } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import Avatar from "../assets/avatar.jpg";
+import Logo from "../assets/logo.png";
+import { useCartStore } from "../store/cartStore";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const count = useCartStore((state) => state.count);
 
   return (
     <section className="w-full sticky top-0 z-50 bg-[#fafafa] border-y border-gray-200">
@@ -56,9 +59,14 @@ const Navbar = () => {
 
             {/* Right Section (Desktop) */}
             <div className="hidden lg:flex items-center space-x-3">
-              <button className="p-2 hover:bg-gray-100 rounded-full">
-                <HiOutlineShoppingBag className="w-6 h-6 text-gray-700" />
-              </button>
+              <div className="relative">
+                <button className="p-2 hover:bg-gray-100 rounded-full">
+                  <HiOutlineShoppingBag className="w-6 h-6 text-gray-700" />
+                </button>
+                <div className="absolute -top-1 right-0 bg-red-500 text-white text-xs px-1 rounded-full">
+                  {count}
+                </div>
+              </div>
               <span className="w-px h-8 bg-gray-200" />
               {!isLoggedIn ? (
                 <button
