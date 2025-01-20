@@ -17,10 +17,17 @@ const TopInfo = () => {
           </div>
           <span className="text-sm text-gray-600">EN</span>
         </div>
-        <a href="#" className="text-sm text-gray-600 hover:text-gray-900">
-          Need Help?
+        <a
+          href="mailto:support@thread.com"
+          className="text-sm text-gray-600 hover:text-gray-900"
+        >
+          Contact Us
         </a>
-        <a href="#" className="text-sm text-gray-600 hover:text-gray-900">
+        <a
+          href="https://www.fedex.com/en-us/tracking.html"
+          target="_blank"
+          className="text-sm text-gray-600 hover:text-gray-900"
+        >
           Track your order
         </a>
       </div>
