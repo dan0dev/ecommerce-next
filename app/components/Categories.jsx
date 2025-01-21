@@ -120,7 +120,7 @@ const Categories = () => {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="w-full h-px bg-gray-300/60 mt-8 sm:mt-16"></div>
+      <div className="w-full h-px bg-gray-300/60 mt-8 sm:mt-16" />
     </section>
   );
 };

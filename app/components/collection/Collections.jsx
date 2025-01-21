@@ -44,8 +44,7 @@ const Collections = () => {
   };
 
   const handleCheckout = useCallback(() => {
-    // Navigate to checkout or trigger checkout modal
-    window.location.href = "/checkout"; // Or use your navigation method
+    window.location.href = "/checkout"; // checkout oldal
   }, []);
 
   const handleAddToCart = useCallback((product) => {
@@ -120,6 +119,7 @@ const Collections = () => {
           ))}
         </AnimatePresence>
       </div>
+      <div className="w-full h-px bg-gray-300/60 mt-8 sm:mt-16" />
     </section>
   );
 };
