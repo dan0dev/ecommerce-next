@@ -2,7 +2,7 @@ const MiddleBanner = () => {
   return (
     <section className="w-full py-4 sm:py-6">
       <div className="container mx-auto">
-        <div className="bg-[#98a474] rounded-3xl overflow-hidden relative h-[320px] shadow-md">
+        <div className="bg-gradient-to-br from-[#798461] to-[#93a075] rounded-3xl overflow-hidden relative h-[320px] shadow-md">
           <div className="relative h-full flex flex-col items-center justify-center p-8 sm:p-12 text-center">
             <span className="text-white/90 text-sm tracking-[0.2em] font-light mb-4">
               LAST CHANCE
