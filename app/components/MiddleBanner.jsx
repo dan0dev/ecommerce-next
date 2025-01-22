@@ -3,7 +3,7 @@ import Image from "next/image";
 const MiddleBanner = () => {
   return (
     <section className="w-full py-4 sm:py-6">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-6 lg:px-0">
         <div className="bg-gradient-to-br from-[#798461] to-[#93a075] rounded-3xl overflow-hidden relative h-[320px] shadow-md">
           {/* Content */}
           <div className="relative h-full flex flex-col items-center justify-center p-8 sm:p-12 text-center z-10">
@@ -11,7 +11,7 @@ const MiddleBanner = () => {
               LAST CHANCE
             </span>
 
-            <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-light tracking-wider leading-tight">
+            <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-light tracking-wider leading-tight">
               EXPLORE OUR RANGE OF
               <br className="hidden sm:block" />
               <span className="block mt-3">STYLISH DRESSES</span>
@@ -23,30 +23,30 @@ const MiddleBanner = () => {
           </div>
 
           {/* Right Image */}
-          <div className="absolute top-0 right-0 w-1/4 h-full overflow-hidden">
-            <div className="relative w-full h-[140%] -top-[35%]">
+          <div className="absolute top-0 right-0 h-full w-1/3 sm:w-1/4 overflow-hidden hidden lg:block">
+            <div className="relative w-full h-full ">
               <Image
                 src="/middlebanner.png"
                 alt="Banner"
                 fill
                 className="object-cover object-center"
-                quality={100}
-                sizes="25vw"
+                quality={85}
+                sizes="(max-width: 640px) 33vw, 25vw"
                 priority
               />
             </div>
           </div>
 
           {/* Left Image */}
-          <div className="absolute top-0 left-6 w-1/4 h-full overflow-hidden">
-            <div className="relative w-full h-[100%]">
+          <div className="absolute top-0 left-0 sm:left-6 h-full w-full sm:w-1/4 overflow-hidden blur-sm lg:blur-none">
+            <div className="relative w-full h-full">
               <Image
                 src="/middlebanner2.png"
                 alt="Banner"
                 fill
                 className="object-cover object-center"
-                quality={100}
-                sizes="25vw"
+                quality={90}
+                sizes="(max-width: 640px) 33vw, 25vw"
                 priority
               />
             </div>
