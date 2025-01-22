@@ -17,7 +17,19 @@ const MiddleBanner = () => {
               <span className="block mt-3">STYLISH DRESSES</span>
             </h1>
 
-            <button className="mt-6 bg-white text-gray-800 px-6 py-2 rounded-full text-sm tracking-wider hover:bg-white/90 transition-colors duration-200">
+            <button
+              className="mt-6 bg-white text-gray-800 px-6 py-2 rounded-full text-sm tracking-wider
+  border-2 border-gray-200
+  shadow-[2px_2px_2px_rgba(0,0,0,0.2)]
+  active:shadow-[1px_1px_1px_rgba(0,0,0,0.2)]
+  active:translate-y-[1px]
+  active:translate-x-[1px]
+  transition-all duration-200
+  hover:bg-black/70
+  hover:text-white
+  hover:border-gray-500
+  "
+            >
               CHECK IT NOW
             </button>
           </div>
