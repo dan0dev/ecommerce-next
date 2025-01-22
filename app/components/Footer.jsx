@@ -54,12 +54,12 @@ const Footer = () => {
     <footer className="w-full bg-[#F4F4F4]">
       {/* Newsletter */}
       <div className="w-full py-8 mt-8 border-t border-gray-200">
-        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-start gap-4 px-4">
-          <div className="text-center max-w-sm">
+        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6 px-4">
+          <div className="w-full flex flex-col items-center justify-center">
             <h3 className="font-medium text-sm mb-1">
               ELEVATE YOUR FASHION GAME
             </h3>
-            <p className="text-xs text-gray-600 mb-2 font-light">
+            <p className="text-xs text-gray-600 mb-2 font-light text-center">
               Sign up for our email newsletter and GET 10% OFF. It's like having
               a stylist BFF. Opt out any time.
             </p>
@@ -68,7 +68,7 @@ const Footer = () => {
             </a>
             {renderNewsletterForm()}
           </div>
-          <div className="text-center">
+          <div className="w-full flex flex-col items-center justify-center">
             <h3 className="font-medium text-sm mb-1">HELP US IMPROVE</h3>
             <p className="text-xs text-gray-600 font-light">
               Take a brief survey about today's visit.
@@ -77,9 +77,9 @@ const Footer = () => {
               BEGIN SURVEY
             </button>
           </div>
-          <div className="text-center">
+          <div className="w-full flex flex-col items-center justify-center">
             <h3 className="font-medium text-sm mb-1">GET THREAD ON THE GO</h3>
-            <p className="text-xs text-gray-600 font-light">
+            <p className="text-xs text-gray-600 font-light text-center">
               Download our super easy-to-use app available for your iPhone, iPad{" "}
               <br />
               and Android
