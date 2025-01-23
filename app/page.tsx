@@ -3,6 +3,7 @@ import Categories from "./components/Categories";
 import Collections from "./components/collection/Collections";
 import CookieBanner from "./components/CookieBanner";
 import Footer from "./components/Footer";
+import LastPart from "./components/LastPart";
 import MiddleBanner from "./components/MiddleBanner";
 import Navbar from "./components/Navbar";
 import Topbar from "./components/Topbar";
@@ -20,6 +21,7 @@ export default function App() {
         <Categories />
         <Collections />
         <MiddleBanner />
+        <LastPart />
       </div>
       <Footer />
     </main>
