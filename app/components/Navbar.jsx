@@ -2,6 +2,7 @@
 
 import { Search, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import Avatar from "../assets/avatar.jpg";
@@ -20,16 +21,18 @@ const Navbar = () => {
         <header className="py-4 relative">
           <nav className="flex items-center justify-between">
             {/* Logo */}
-            <button>
-              <Image
-                src={Logo}
-                alt="Brand Logo"
-                className="w-24 rounded-lg"
-                width={96}
-                height={96}
-                priority
-              />
-            </button>
+            <Link href="/">
+              <button>
+                <Image
+                  src={Logo}
+                  alt="Brand Logo"
+                  className="w-24 rounded-lg"
+                  width={96}
+                  height={96}
+                  priority
+                />
+              </button>
+            </Link>
 
             {/* Mobile Icons */}
             <div className="lg:hidden flex items-center space-x-4">
