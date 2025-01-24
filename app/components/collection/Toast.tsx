@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { Check, ShoppingCart, X } from "lucide-react";
+import { motion } from "motion/react";
 
 interface ToastProps {
   message: string;
