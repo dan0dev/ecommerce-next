@@ -1,6 +1,7 @@
 import defaultImage from "@/public/collection/defaultImage.png";
 import { ArrowRight, Check, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { useCartStore } from "../../store/cartStore";
 
@@ -64,32 +65,38 @@ const ProductCard = ({
             <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-white hover:text-blue-400 transition-all" />
           )}
         </button>
-        <div className="relative w-full h-full">
-          <div className="relative w-full h-full p-2 sm:p-4">
-            <Image
-              src={product.image || defaultImage}
-              alt={product.name}
-              fill
-              className="object-cover object-center rounded-lg sm:rounded-xl"
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              priority={index < 4}
-            />
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-xl rounded-br-xl sm:rounded-bl-2xl sm:rounded-br-2xl">
-            <div className="text-white text-xs sm:text-sm space-y-0.5 sm:space-y-1">
-              <p>{product.materials.join(" • ")}</p>
-              <p>Colors: {product.colors.join(", ")}</p>
-              <p>Sizes: {product.sizes.join(", ")}</p>
+        <Link href={`/product/${product.id}`} scroll={true}>
+          <div className="relative w-full h-full">
+            <div className="relative w-full h-full p-2 sm:p-4">
+              <Image
+                src={product.image || defaultImage}
+                alt={product.name}
+                fill
+                className="object-cover object-center rounded-lg sm:rounded-xl"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                priority={index < 4}
+              />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-xl rounded-br-xl sm:rounded-bl-2xl sm:rounded-br-2xl">
+              <div className="text-white text-xs sm:text-sm space-y-0.5 sm:space-y-1">
+                <p>{product.materials.join(" • ")}</p>
+                <p>Colors: {product.colors.join(", ")}</p>
+                <p>Sizes: {product.sizes.join(", ")}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
       <div className="space-y-0.5 sm:space-y-1">
         <div className="flex items-start justify-between">
           <h3 className="font-medium text-base sm:text-lg">{product.name}</h3>
           <span className="flex items-center gap-0.5 text-xs sm:text-sm text-end lg:text-start text-blue-600 cursor-pointer group/details">
-            View <br className="lg:hidden" />
-            details
+            <Link href={`/product/${product.id}`} scroll={true}>
+              <span className="hover:underline">
+                View <br className="lg:hidden" />
+                details
+              </span>
+            </Link>
             <ArrowRight className="hidden sm:block w-3 h-3 transition-transform group-hover/details:translate-x-1" />
           </span>
         </div>
