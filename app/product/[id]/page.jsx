@@ -1,17 +1,29 @@
 // product/[id]/page.jsx
-"use client";
+'use client';
 
-import Link from "next/link";
-import { use, useEffect } from "react";
-import { COLLECTION_DATA } from "../../components/collection/collectionData";
-import MiddleBanner from "../../components/MiddleBanner";
-import PageTransition from "../../components/PageTransition";
+import { AnimatePresence } from 'motion/react';
+import Link from 'next/link';
+import { use, useEffect, useState } from 'react';
+import { COLLECTION_DATA } from '../../components/collection/collectionData';
+import Toast from '../../components/collection/Toast';
+import MiddleBanner from '../../components/MiddleBanner';
+import PageTransition from '../../components/PageTransition';
+import { useCartStore } from '../../store/cartStore';
 
 export default function ProductPage({ params }) {
+  const addToCart = useCartStore((state) => state.addToCart);
+
   // scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const generateId = () => Math.random().toString(36).substr(2, 9);
+
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [clicked, setClicked] = useState(false);
+  const [toasts, setToasts] = useState([]);
 
   // Unwrapping params - React.use()
   const resolvedParams = use(params);
@@ -28,9 +40,68 @@ export default function ProductPage({ params }) {
     return <div>Product not found!</div>;
   }
 
+  const colorMap = {
+    Orange: '#FF5733',
+    Black: '#000000',
+    Navy: '#000080',
+    'Gray Heather': '#9BA4B5',
+    Natural: '#F5DEB3',
+    Olive: '#808000',
+    'Light Gray': '#D3D3D3',
+    'Dusty Pink': '#FFB6C1',
+    White: '#FFFFFF',
+    Gray: '#808080',
+    Sage: '#9DC183',
+    Khaki: '#C3B091',
+    Yellow: '#FFFF00',
+    Forest: '#228B22',
+    'Forest Green': '#228B22',
+    Red: '#FF0000',
+    Brown: '#A52A2A',
+    Emerald: '#50C878',
+    Turquoise: '#40E0D0',
+  };
+
+  const addToast = (message, isError = false, title) => {
+    const newToast = {
+      id: generateId(),
+      message,
+      isError,
+      title,
+    };
+    setToasts((prev) => [...prev, newToast]);
+
+    setTimeout(
+      () => {
+        removeToast(newToast.id);
+      },
+      isError ? 5000 : 3000
+    );
+  };
+
+  const removeToast = (id) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  };
+
+  const handleCheckout = () => {
+    window.location.href = '/checkout';
+  };
+
+  const handleCartClick = () => {
+    if (clicked) return;
+
+    setClicked(true);
+    addToCart();
+    addToast(`${product.name} has been added to your cart.`, false, 'Added to Cart');
+
+    setTimeout(() => {
+      setClicked(false);
+    }, 3000);
+  };
+
   return (
     <PageTransition>
-      <div className="max-w-screen-xl mx-auto px-4 py-8">
+      <section className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Breadcrumb - nav*/}
         <nav className="flex mb-4" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -68,10 +139,7 @@ export default function ProductPage({ params }) {
                     d="m1 9 4-4-4-4"
                   />
                 </svg>
-                <Link
-                  href="/"
-                  className="ms-1 text-sm text-gray-700 hover:text-blue-600 md:ms-2"
-                >
+                <Link href="/" className="ms-1 text-sm text-gray-700 hover:text-blue-600 md:ms-2">
                   Products
                 </Link>
               </div>
@@ -93,87 +161,211 @@ export default function ProductPage({ params }) {
                     d="m1 9 4-4-4-4"
                   />
                 </svg>
-                <span className="ms-1 text-sm text-gray-500 md:ms-2">
-                  {product.name}
-                </span>
+                <span className="ms-1 text-sm text-gray-500 md:ms-2">{product.name}</span>
               </div>
             </li>
           </ol>
         </nav>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="relative aspect-square bg-gray-300/30 rounded-3xl border border-gray-400/30">
-            <img
-              src={product.image || "/collection/defaultImage.png"}
-              alt={product.name}
-              className="object-contain rounded-lg w-full h-full"
-            />
+        <div>
+          <div className="grid grid-cols-6 grid-rows-2 gap-4">
+            <div className="col-span-3 row-span-3">
+              <div className="relative h-[496px] bg-gray-300/30 rounded-3xl">
+                <img
+                  src={product.image || '/collection/defaultImage.png'}
+                  alt={product.name}
+                  className="object-contain rounded-lg w-full h-full"
+                />
+              </div>
+            </div>
+            <div className="col-span-2 row-span-1">
+              <div className="relative h-60 bg-gray-300/30 rounded-3xl">
+                <img
+                  src={product.image || '/collection/defaultImage.png'}
+                  alt={product.name}
+                  className="object-contain rounded-lg w-full h-full"
+                />
+              </div>
+            </div>
+            <div className="col-span-1 row-span-1">
+              <div className="relative h-60 bg-gray-300/30 rounded-3xl">
+                <img
+                  src={product.image || '/collection/defaultImage.png'}
+                  alt={product.name}
+                  className="object-contain rounded-lg w-full h-full"
+                />
+              </div>
+            </div>
+            <div className="col-span-3 row-span-2">
+              <div className="relative h-60 bg-gray-300/30 rounded-3xl">
+                <img
+                  src={product.image || '/collection/defaultImage.png'}
+                  alt={product.name}
+                  className="object-contain rounded-lg w-full h-full"
+                />
+              </div>
+            </div>
           </div>
-
-          <div className="space-y-6">
-            <h1 className="text-3xl font-semibold">{product.name}</h1>
-            <p className="text-xl font-medium">${product.price}</p>
-            <p className="text-gray-600">{product.description}</p>
-
+          <div className="grid grid-cols-2 gap-4 mt-4">
             <div className="space-y-4">
-              <div>
-                <h3 className="font-medium mb-2">Available Colors:</h3>
-                <div className="flex gap-2">
-                  {product.colors.map((color, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-gray-100 rounded-full text-sm"
-                    >
-                      {color}
-                    </span>
-                  ))}
+              <h1 className="uppercase text-3xl font-medium">{product.name}</h1>
+              <div className="flex items-center">
+                <span className="text-yellow-500 flex items-center">
+                  {[...Array(5)].map((_, i) => {
+                    const starValue = i + 1;
+                    const ratingValue = product.rating;
+
+                    let fillPercentage = 0;
+                    if (ratingValue >= starValue) {
+                      fillPercentage = 100;
+                    } else if (ratingValue > starValue - 1) {
+                      // Handle partial stars
+                      const decimalPart = ratingValue % 1;
+                      if (decimalPart >= 0.3 && decimalPart < 0.7) {
+                        fillPercentage = 50;
+                      } else if (decimalPart >= 0.7) {
+                        fillPercentage = 100;
+                      } else if (decimalPart < 0.3) {
+                        fillPercentage = 0;
+                      }
+                    }
+
+                    return (
+                      <svg
+                        key={i}
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 relative"
+                        viewBox="0 0 24 24"
+                      >
+                        {/* Background (unfilled) star */}
+                        <path
+                          d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
+                        {/* Filled star */}
+                        <defs>
+                          <clipPath id={`starClip-${i}`}>
+                            <rect x="0" y="0" width={`${fillPercentage}%`} height="100%" />
+                          </clipPath>
+                        </defs>
+                        <path
+                          d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                          fill="currentColor"
+                          clipPath={`url(#starClip-${i})`}
+                        />
+                      </svg>
+                    );
+                  })}
+                </span>
+                <span className="ml-2 text-gray-600 text-sm">
+                  ({product.rating} from 328 Reviews)
+                </span>
+              </div>
+              <div className="flex gap-12 items-start">
+                <div className="flex flex-col">
+                  <h3 className="text-lg font-medium mb-2">Select Color</h3>
+                  <div className="flex space-x-3 items-center">
+                    {product.colors &&
+                      product.colors.map((color) => (
+                        <button
+                          key={color}
+                          onClick={() => setSelectedColor(color)}
+                          className={`
+                        w-8 h-8 rounded-full cursor-pointer
+                        transition-all duration-300 ease-in-out
+                        ${
+                          selectedColor === color
+                            ? 'border-4 border-blue-500'
+                            : 'border-2 border-gray-300'
+                        }
+                      `}
+                          style={{
+                            backgroundColor: colorMap[color] || '#CCCCCC',
+                            boxShadow:
+                              selectedColor === color
+                                ? '0 0 0 2px rgba(59, 130, 246, 0.5)'
+                                : 'none',
+                          }}
+                          aria-label={`Select ${color} color`}
+                        ></button>
+                      ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col">
+                  <h3 className="text-lg font-medium mb-2">Select Size</h3>
+                  <div className="flex space-x-3">
+                    {product.sizes &&
+                      product.sizes.map((size) => (
+                        <button
+                          key={size}
+                          type="button"
+                          onClick={() => setSelectedSize(size)}
+                          className={`
+                          rounded-full text-sm font-medium flex items-center justify-center
+                          transition-all duration-300 ease-in-out
+                          ${
+                            size === 'One Size'
+                              ? 'w-24 h-10'
+                              : size === 'Large'
+                              ? 'w-16 h-12'
+                              : 'w-12 h-8'
+                          }
+                          ${
+                            selectedSize === size
+                              ? 'bg-black text-white'
+                              : 'bg-white/80 text-gray-700 border border-gray-400/50 hover:bg-gray-100'
+                          }
+                        `}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div>
-                <h3 className="font-medium">Available Sizes:</h3>
-                <div className="flex group">
-                  <p className="mb-2 font-light text-sm text-gray-700 group-hover:text-blue-600 group-hover:font-base group-hover:cursor-pointer mr-1 transition-all duration-50">
-                    Size guide
-                  </p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-4 group-hover:fill-blue-500 transition-all duration-50 cursor-pointer"
-                    viewBox="0 0 34 34"
-                  >
-                    <path d="M21.434 11.975l8.602-8.549-0.028 4.846c-0.009 0.404 0.311 0.755 0.716 0.746l0.513-0.001c0.404-0.009 0.739-0.25 0.748-0.654l0.021-7.219c0-0.007-0.027-0.012-0.027-0.019l0.040-0.366c0.004-0.203-0.044-0.384-0.174-0.513-0.13-0.131-0.311-0.21-0.512-0.204l-0.366 0.009c-0.007 0-0.012 0.003-0.020 0.004l-7.172-0.032c-0.404 0.009-0.738 0.343-0.747 0.748l-0.001 0.513c0.061 0.476 0.436 0.755 0.84 0.746l4.726 0.013-8.572 8.52c-0.39 0.39-0.39 1.024 0 1.415s1.023 0.39 1.414 0zM10.597 20.025l-8.602 8.523 0.027-4.82c0.010-0.404-0.312-0.756-0.716-0.747l-0.544 0.001c-0.405 0.010-0.739 0.25-0.748 0.654l-0.021 7.219c0 0.007 0.028 0.011 0.028 0.019l-0.040 0.365c-0.005 0.203 0.043 0.385 0.174 0.514 0.129 0.131 0.311 0.21 0.512 0.205l0.366-0.009c0.007 0 0.012-0.003 0.020-0.003l7.203 0.032c0.404-0.010 0.738-0.344 0.748-0.748l0.001-0.514c-0.062-0.476-0.436-0.755-0.84-0.746l-4.726-0.012 8.571-8.518c0.39-0.39 0.39-1.023 0-1.414s-1.023-0.391-1.413-0zM32.007 30.855l-0.021-7.219c-0.009-0.404-0.343-0.645-0.747-0.654l-0.513-0.001c-0.404-0.009-0.725 0.343-0.716 0.747l0.028 4.846-8.602-8.549c-0.39-0.39-1.023-0.39-1.414 0s-0.39 1.023 0 1.414l8.571 8.518-4.726 0.012c-0.404-0.009-0.779 0.27-0.84 0.746l0.001 0.514c0.009 0.404 0.344 0.739 0.747 0.748l7.172-0.032c0.008 0 0.013 0.003 0.020 0.003l0.366 0.009c0.201 0.005 0.384-0.074 0.512-0.205 0.131-0.129 0.178-0.311 0.174-0.514l-0.040-0.365c0-0.008 0.027-0.012 0.027-0.019zM3.439 2.041l4.727-0.012c0.404 0.009 0.778-0.27 0.84-0.746l-0.001-0.513c-0.010-0.405-0.344-0.739-0.748-0.748l-7.204 0.031c-0.008-0.001-0.013-0.004-0.020-0.004l-0.366-0.009c-0.201-0.005-0.383 0.074-0.512 0.204-0.132 0.13-0.179 0.31-0.174 0.514l0.040 0.366c0 0.007-0.028 0.012-0.028 0.020l0.021 7.219c0.009 0.404 0.343 0.645 0.748 0.654l0.545 0.001c0.404 0.009 0.724-0.342 0.715-0.746l-0.028-4.819 8.602 8.523c0.39 0.39 1.024 0.39 1.414 0s0.39-1.024 0-1.415z"></path>
-                  </svg>
-                </div>
-                <div className="flex gap-2">
-                  {product.sizes.map((size, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-gray-100 rounded-full text-sm"
-                    >
-                      {size}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            {/* --------------------------------------------- */}
 
-              <div>
-                <h3 className="font-medium mb-2">Materials:</h3>
-                <div className="flex flex-wrap gap-2">
-                  {product.materials.map((material, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-gray-100 rounded-full text-sm"
-                    >
-                      {material}
-                    </span>
-                  ))}
-                </div>
+            <div className="space-y-2 flex flex-col justify-between h-full">
+              <p className="text-sm font-medium">Total Price</p>
+              <h1 className="text-4xl font-bold">${product.price}</h1>
+
+              <div className="flex justify-between mt-4">
+                <button
+                  className="flex-1 uppercase text-base border border-black py-3 rounded-full mr-2 hover:bg-black/10 transition-colors duration-300"
+                  onClick={handleCartClick}
+                  disabled={clicked}
+                >
+                  {clicked ? 'Added!' : 'Add to Cart'}
+                </button>
+                <button className="flex-1 uppercase text-base border bg-black text-white py-2 rounded-full ml-2 hover:bg-black/70 transition-colors duration-300">
+                  Buy It Now
+                </button>
               </div>
             </div>
           </div>
         </div>
+        <div className="fixed bottom-4 right-4 z-50 flex flex-col-reverse gap-3">
+          <AnimatePresence>
+            {toasts.map((toast) => (
+              <Toast
+                key={toast.id}
+                message={toast.message}
+                title={toast.title}
+                isVisible={true}
+                onClose={() => removeToast(toast.id)}
+                isError={toast.isError}
+                onCheckout={!toast.isError ? handleCheckout : undefined}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
         <div className="w-full h-px bg-gray-300/60 mt-8 sm:mt-16" />
         <MiddleBanner />
-      </div>
+      </section>
     </PageTransition>
   );
 }
