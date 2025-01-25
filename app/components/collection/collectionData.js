@@ -3,12 +3,13 @@ export const COLLECTION_DATA = {
     {
       id: 1,
       name: "Brodeo Beanie",
-      price: 25,
+      price: 30,
       image: "/collection/all1.png",
       materials: ["100% Recycled Wool", "Organic Cotton Lining"],
       colors: ["Orange", "Black", "Navy", "Gray Heather", "Natural"],
       sizes: ["S", "M", "L"],
       description: "A warm and stylish beanie made from recycled wool.",
+      rating: 4.7,
     },
     {
       id: 2,
@@ -21,6 +22,7 @@ export const COLLECTION_DATA = {
       capacity: "28L",
       description:
         "A versatile backpack with ample storage and water resistance.",
+      rating: 4.3,
     },
     {
       id: 3,
@@ -37,6 +39,7 @@ export const COLLECTION_DATA = {
         "Embroidered Logo",
       ],
       description: "A compact shoulder bag perfect for daily essentials.",
+      rating: 4.1,
     },
 
     {
@@ -48,6 +51,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy", "Sage"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "A soft and comfortable crew tee made from organic cotton.",
+      rating: 4.0,
     },
     {
       id: 5,
@@ -58,6 +62,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Olive"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "A cozy hoodie made from organic cotton fleece.",
+      rating: 4.8,
     },
     {
       id: 6,
@@ -68,6 +73,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Khaki", "Navy", "Olive"],
       sizes: ["28", "30", "32", "34", "36"],
       description: "Durable trail pants with a water-repellent finish.",
+      rating: 4.6,
     },
     {
       id: 7,
@@ -78,6 +84,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Forest"],
       sizes: ["One Size"],
       description: "A warm beanie made from a merino wool blend.",
+      rating: 4.5,
     },
     {
       id: 8,
@@ -88,6 +95,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Olive"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "A lightweight and warm vest for outdoor adventures.",
+      rating: 4.8,
     },
   ],
   Shorts: [
@@ -100,6 +108,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy"],
       sizes: ["S", "M", "L", "XL", "XXL"],
       description: "Durable and comfortable shorts for trail activities.",
+      rating: 4.4,
     },
     {
       id: 10,
@@ -110,6 +119,7 @@ export const COLLECTION_DATA = {
       colors: ["Khaki", "Olive", "Navy"],
       sizes: ["S", "M", "L", "XL"],
       description: "Stretchable shorts designed for adventure and comfort.",
+      rating: 4.5,
     },
     {
       id: 11,
@@ -117,9 +127,10 @@ export const COLLECTION_DATA = {
       price: 89,
       image: "",
       materials: ["Sample Cotton", "Sample Fabric"],
-      colors: ["Khaki", "Olive", "Navy", "Yellow", "Olive"],
+      colors: ["Khaki", "Olive", "Navy", "Yellow"],
       sizes: ["S", "M", "L", "XL"],
       description: "Sample shorts with a unique design and fabric.",
+      rating: 4.3,
     },
     {
       id: 12,
@@ -127,9 +138,10 @@ export const COLLECTION_DATA = {
       price: 89,
       image: "",
       materials: ["Sample Cotton", "Sample Fabric"],
-      colors: ["Khaki", "Olive", "Navy", "Yellow", "Olive"],
+      colors: ["Khaki", "Olive", "Navy", "Yellow"],
       sizes: ["S", "M", "L", "XL"],
       description: "Sample shorts with a unique design and fabric.",
+      rating: 4.3,
     },
     {
       id: 13,
@@ -137,9 +149,10 @@ export const COLLECTION_DATA = {
       price: 89,
       image: "",
       materials: ["Sample Cotton", "Sample Fabric"],
-      colors: ["Khaki", "Olive", "Navy", "Yellow", "Olive"],
+      colors: ["Khaki", "Olive", "Navy", "Yellow"],
       sizes: ["S", "M", "L", "XL"],
       description: "Sample shorts with a unique design and fabric.",
+      rating: 4.3,
     },
     {
       id: 14,
@@ -147,9 +160,10 @@ export const COLLECTION_DATA = {
       price: 89,
       image: "",
       materials: ["Sample Cotton", "Sample Fabric"],
-      colors: ["Khaki", "Olive", "Navy", "Yellow", "Olive"],
+      colors: ["Khaki", "Olive", "Navy", "Yellow"],
       sizes: ["S", "M", "L", "XL"],
       description: "Sample shorts with a unique design and fabric.",
+      rating: 4.3,
     },
     {
       id: 15,
@@ -157,9 +171,10 @@ export const COLLECTION_DATA = {
       price: 89,
       image: "",
       materials: ["Sample Cotton", "Sample Fabric"],
-      colors: ["Khaki", "Olive", "Navy", "Yellow", "Olive"],
+      colors: ["Khaki", "Olive", "Navy", "Yellow"],
       sizes: ["S", "M", "L", "XL"],
       description: "Sample shorts with a unique design and fabric.",
+      rating: 4.3,
     },
     {
       id: 16,
@@ -167,9 +182,10 @@ export const COLLECTION_DATA = {
       price: 89,
       image: "",
       materials: ["Sample Cotton", "Sample Fabric"],
-      colors: ["Khaki", "Olive", "Navy", "Yellow", "Olive"],
+      colors: ["Khaki", "Olive", "Navy", "Yellow"],
       sizes: ["S", "M", "L", "XL"],
       description: "Sample shorts with a unique design and fabric.",
+      rating: 4.3,
     },
   ],
   Jackets: [
@@ -182,6 +198,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Forest Green", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "A warm and insulated jacket for exploring the outdoors.",
+      rating: 4.9,
     },
     {
       id: 18,
@@ -192,6 +209,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Red"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "A lightweight windbreaker with water-repellent finish.",
+      rating: 4.6,
     },
     {
       id: 19,
@@ -202,6 +220,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Red"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "Sample jacket with a stylish design and water resistance.",
+      rating: 4.2,
     },
     {
       id: 20,
@@ -212,6 +231,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Red"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "Sample jacket with a stylish design and water resistance.",
+      rating: 4.2,
     },
     {
       id: 21,
@@ -222,6 +242,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Red"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "Sample jacket with a stylish design and water resistance.",
+      rating: 4.2,
     },
     {
       id: 22,
@@ -232,6 +253,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Red"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "Sample jacket with a stylish design and water resistance.",
+      rating: 4.2,
     },
     {
       id: 23,
@@ -242,6 +264,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Red"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "Sample jacket with a stylish design and water resistance.",
+      rating: 4.2,
     },
     {
       id: 24,
@@ -252,6 +275,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Navy", "Red"],
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
       description: "Sample jacket with a stylish design and water resistance.",
+      rating: 4.2,
     },
   ],
   Shoes: [
@@ -264,6 +288,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Gray", "Brown"],
       sizes: ["8", "9", "10", "11", "12"],
       description: "Durable hiking shoes with waterproof mesh and Vibram sole.",
+      rating: 4.6,
     },
     {
       id: 26,
@@ -274,6 +299,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Navy", "Olive"],
       sizes: ["7", "8", "9", "10", "11", "12"],
       description: "Lightweight trail runners with breathable mesh.",
+      rating: 4.5,
     },
     {
       id: 27,
@@ -284,6 +310,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Navy", "Olive"],
       sizes: ["7", "8", "9", "10", "11", "12"],
       description: "Sample shoes with a comfortable and breathable design.",
+      rating: 4.1,
     },
     {
       id: 28,
@@ -294,6 +321,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Navy", "Olive"],
       sizes: ["7", "8", "9", "10", "11", "12"],
       description: "Sample shoes with a comfortable and breathable design.",
+      rating: 4.1,
     },
     {
       id: 29,
@@ -304,6 +332,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Navy", "Olive"],
       sizes: ["7", "8", "9", "10", "11", "12"],
       description: "Sample shoes with a comfortable and breathable design.",
+      rating: 4.1,
     },
     {
       id: 30,
@@ -314,6 +343,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Navy", "Olive"],
       sizes: ["7", "8", "9", "10", "11", "12"],
       description: "Sample shoes with a comfortable and breathable design.",
+      rating: 4.1,
     },
     {
       id: 31,
@@ -324,6 +354,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Navy", "Olive"],
       sizes: ["7", "8", "9", "10", "11", "12"],
       description: "Sample shoes with a comfortable and breathable design.",
+      rating: 4.1,
     },
     {
       id: 32,
@@ -334,6 +365,7 @@ export const COLLECTION_DATA = {
       colors: ["Black", "Navy", "Olive"],
       sizes: ["7", "8", "9", "10", "11", "12"],
       description: "Sample shoes with a comfortable and breathable design.",
+      rating: 4.1,
     },
   ],
   "T-shirt": [
@@ -346,6 +378,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy", "Sage"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "A soft and comfortable crew tee made from organic cotton.",
+      rating: 4.7,
     },
     {
       id: 34,
@@ -356,6 +389,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "A stylish graphic t-shirt made from organic cotton.",
+      rating: 4.5,
     },
     {
       id: 35,
@@ -366,6 +400,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "Sample t-shirt with a simple and classic design.",
+      rating: 4.0,
     },
     {
       id: 36,
@@ -376,6 +411,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "Sample t-shirt with a simple and classic design.",
+      rating: 4.0,
     },
     {
       id: 37,
@@ -386,6 +422,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "Sample t-shirt with a simple and classic design.",
+      rating: 4.0,
     },
     {
       id: 38,
@@ -396,6 +433,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "Sample t-shirt with a simple and classic design.",
+      rating: 4.0,
     },
     {
       id: 39,
@@ -406,6 +444,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "Sample t-shirt with a simple and classic design.",
+      rating: 4.0,
     },
     {
       id: 40,
@@ -416,6 +455,7 @@ export const COLLECTION_DATA = {
       colors: ["White", "Black", "Gray", "Navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
       description: "Sample t-shirt with a simple and classic design.",
+      rating: 4.0,
     },
   ],
 };
