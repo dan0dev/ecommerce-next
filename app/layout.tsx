@@ -30,12 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <CookieBanner />
         <TopInfo />
         <Navbar />
-        <AnimatePresence mode="wait">{children}</AnimatePresence>
+        <main className="flex-grow">
+          <AnimatePresence mode="wait">{children}</AnimatePresence>
+        </main>
         <Footer />
       </body>
     </html>
