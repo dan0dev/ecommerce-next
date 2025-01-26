@@ -1,14 +1,14 @@
 // product/[id]/page.jsx
-'use client';
+"use client";
 
-import { AnimatePresence } from 'motion/react';
-import Link from 'next/link';
-import { use, useEffect, useState } from 'react';
-import { COLLECTION_DATA } from '../../components/collection/collectionData';
-import Toast from '../../components/collection/Toast';
-import MiddleBanner from '../../components/MiddleBanner';
-import PageTransition from '../../components/PageTransition';
-import { useCartStore } from '../../store/cartStore';
+import { AnimatePresence } from "motion/react";
+import Link from "next/link";
+import { use, useEffect, useState } from "react";
+import { COLLECTION_DATA } from "../../components/collection/collectionData";
+import Toast from "../../components/collection/Toast";
+import MiddleBanner from "../../components/MiddleBanner";
+import PageTransition from "../../components/PageTransition";
+import { useCartStore } from "../../store/cartStore";
 
 export default function ProductPage({ params }) {
   const addToCart = useCartStore((state) => state.addToCart);
@@ -41,25 +41,25 @@ export default function ProductPage({ params }) {
   }
 
   const colorMap = {
-    Orange: '#FF5733',
-    Black: '#000000',
-    Navy: '#000080',
-    'Gray Heather': '#9BA4B5',
-    Natural: '#F5DEB3',
-    Olive: '#808000',
-    'Light Gray': '#D3D3D3',
-    'Dusty Pink': '#FFB6C1',
-    White: '#FFFFFF',
-    Gray: '#808080',
-    Sage: '#9DC183',
-    Khaki: '#C3B091',
-    Yellow: '#FFFF00',
-    Forest: '#228B22',
-    'Forest Green': '#228B22',
-    Red: '#FF0000',
-    Brown: '#A52A2A',
-    Emerald: '#50C878',
-    Turquoise: '#40E0D0',
+    Orange: "#FF5733",
+    Black: "#000000",
+    Navy: "#000080",
+    "Gray Heather": "#9BA4B5",
+    Natural: "#F5DEB3",
+    Olive: "#808000",
+    "Light Gray": "#D3D3D3",
+    "Dusty Pink": "#FFB6C1",
+    White: "#FFFFFF",
+    Gray: "#808080",
+    Sage: "#9DC183",
+    Khaki: "#C3B091",
+    Yellow: "#FFFF00",
+    Forest: "#228B22",
+    "Forest Green": "#228B22",
+    Red: "#FF0000",
+    Brown: "#A52A2A",
+    Emerald: "#50C878",
+    Turquoise: "#40E0D0",
   };
 
   const addToast = (message, isError = false, title) => {
@@ -84,7 +84,7 @@ export default function ProductPage({ params }) {
   };
 
   const handleCheckout = () => {
-    window.location.href = '/checkout';
+    window.location.href = "/checkout";
   };
 
   const handleCartClick = () => {
@@ -92,7 +92,11 @@ export default function ProductPage({ params }) {
 
     setClicked(true);
     addToCart();
-    addToast(`${product.name} has been added to your cart.`, false, 'Added to Cart');
+    addToast(
+      `${product.name} has been added to your cart.`,
+      false,
+      "Added to Cart"
+    );
 
     setTimeout(() => {
       setClicked(false);
@@ -139,7 +143,10 @@ export default function ProductPage({ params }) {
                     d="m1 9 4-4-4-4"
                   />
                 </svg>
-                <Link href="/" className="ms-1 text-sm text-gray-700 hover:text-blue-600 md:ms-2">
+                <Link
+                  href="/"
+                  className="ms-1 text-sm text-gray-700 hover:text-blue-600 md:ms-2"
+                >
                   Products
                 </Link>
               </div>
@@ -161,7 +168,9 @@ export default function ProductPage({ params }) {
                     d="m1 9 4-4-4-4"
                   />
                 </svg>
-                <span className="ms-1 text-sm text-gray-500 md:ms-2">{product.name}</span>
+                <span className="ms-1 text-sm text-gray-500 md:ms-2">
+                  {product.name}
+                </span>
               </div>
             </li>
           </ol>
@@ -171,7 +180,7 @@ export default function ProductPage({ params }) {
             <div className="col-span-3 row-span-3">
               <div className="relative h-[496px] bg-gray-300/30 rounded-3xl">
                 <img
-                  src={product.image || '/collection/defaultImage.png'}
+                  src={product.image || "/collection/defaultImage.png"}
                   alt={product.name}
                   className="object-contain rounded-lg w-full h-full"
                 />
@@ -180,7 +189,7 @@ export default function ProductPage({ params }) {
             <div className="col-span-2 row-span-1">
               <div className="relative h-60 bg-gray-300/30 rounded-3xl">
                 <img
-                  src={product.image || '/collection/defaultImage.png'}
+                  src={product.image || "/collection/defaultImage.png"}
                   alt={product.name}
                   className="object-contain rounded-lg w-full h-full"
                 />
@@ -189,7 +198,7 @@ export default function ProductPage({ params }) {
             <div className="col-span-1 row-span-1">
               <div className="relative h-60 bg-gray-300/30 rounded-3xl">
                 <img
-                  src={product.image || '/collection/defaultImage.png'}
+                  src={product.image || "/collection/defaultImage.png"}
                   alt={product.name}
                   className="object-contain rounded-lg w-full h-full"
                 />
@@ -198,7 +207,7 @@ export default function ProductPage({ params }) {
             <div className="col-span-3 row-span-2">
               <div className="relative h-60 bg-gray-300/30 rounded-3xl">
                 <img
-                  src={product.image || '/collection/defaultImage.png'}
+                  src={product.image || "/collection/defaultImage.png"}
                   alt={product.name}
                   className="object-contain rounded-lg w-full h-full"
                 />
@@ -246,7 +255,12 @@ export default function ProductPage({ params }) {
                         {/* Filled star */}
                         <defs>
                           <clipPath id={`starClip-${i}`}>
-                            <rect x="0" y="0" width={`${fillPercentage}%`} height="100%" />
+                            <rect
+                              x="0"
+                              y="0"
+                              width={`${fillPercentage}%`}
+                              height="100%"
+                            />
                           </clipPath>
                         </defs>
                         <path
@@ -276,16 +290,16 @@ export default function ProductPage({ params }) {
                         transition-all duration-300 ease-in-out
                         ${
                           selectedColor === color
-                            ? 'border-4 border-blue-500'
-                            : 'border-2 border-gray-300'
+                            ? "border-4 border-blue-500"
+                            : "border-2 border-gray-300"
                         }
                       `}
                           style={{
-                            backgroundColor: colorMap[color] || '#CCCCCC',
+                            backgroundColor: colorMap[color] || "#CCCCCC",
                             boxShadow:
                               selectedColor === color
-                                ? '0 0 0 2px rgba(59, 130, 246, 0.5)'
-                                : 'none',
+                                ? "0 0 0 2px rgba(59, 130, 246, 0.5)"
+                                : "none",
                           }}
                           aria-label={`Select ${color} color`}
                         ></button>
@@ -306,16 +320,16 @@ export default function ProductPage({ params }) {
                           rounded-full text-sm font-medium flex items-center justify-center
                           transition-all duration-300 ease-in-out
                           ${
-                            size === 'One Size'
-                              ? 'w-24 h-10'
-                              : size === 'Large'
-                              ? 'w-16 h-12'
-                              : 'w-12 h-8'
+                            size === "One Size"
+                              ? "w-20 h-8"
+                              : size === "Large"
+                              ? "w-16 h-12"
+                              : "w-12 h-8"
                           }
                           ${
                             selectedSize === size
-                              ? 'bg-black text-white'
-                              : 'bg-white/80 text-gray-700 border border-gray-400/50 hover:bg-gray-100'
+                              ? "bg-black text-white"
+                              : "bg-white/80 text-gray-700 border border-gray-400/50 hover:bg-gray-100"
                           }
                         `}
                         >
@@ -339,7 +353,7 @@ export default function ProductPage({ params }) {
                   onClick={handleCartClick}
                   disabled={clicked}
                 >
-                  {clicked ? 'Added!' : 'Add to Cart'}
+                  {clicked ? "Added!" : "Add to Cart"}
                 </button>
                 <button className="flex-1 uppercase text-base border bg-black text-white py-2 rounded-full ml-2 hover:bg-black/70 transition-colors duration-300">
                   Buy It Now
