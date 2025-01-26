@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Search, X } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-import Avatar from "../assets/avatar.jpg";
-import Logo from "../assets/logo.png";
-import { useCartStore } from "../store/cartStore";
+import { Search, X } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import { HiOutlineShoppingBag } from 'react-icons/hi2';
+import Avatar from '../assets/avatar.jpg';
+import Logo from '../assets/logo.png';
+import { useCartStore } from '../store/cartStore';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,9 +36,11 @@ const Navbar = () => {
 
             {/* Mobile Icons */}
             <div className="lg:hidden flex items-center space-x-4">
-              <button className="p-2 hover:bg-gray-100 rounded-full">
-                <HiOutlineShoppingBag className="w-6 h-6 text-gray-700" />
-              </button>
+              <Link href="/cart">
+                <button className="p-2 hover:bg-gray-100 rounded-full">
+                  <HiOutlineShoppingBag className="w-6 h-6 text-gray-700" />
+                </button>
+              </Link>
               <button
                 className="p-2 hover:bg-gray-100 rounded-full"
                 onClick={() => setIsSearchOpen(true)}
@@ -62,14 +64,16 @@ const Navbar = () => {
 
             {/* Right Section (Desktop) */}
             <div className="hidden lg:flex items-center space-x-3">
-              <div className="relative">
-                <button className="p-2 hover:bg-gray-100 rounded-full">
-                  <HiOutlineShoppingBag className="w-6 h-6 text-gray-700" />
-                </button>
-                <div className="absolute -top-1 right-0 bg-red-500 text-white text-xs px-1 rounded-full">
-                  {count}
+              <Link href="/cart">
+                <div className="relative">
+                  <button className="p-2 hover:bg-gray-100 rounded-full">
+                    <HiOutlineShoppingBag className="w-6 h-6 text-gray-700" />
+                  </button>
+                  <div className="absolute -top-1 right-0 bg-red-500 text-white text-xs px-1 rounded-full">
+                    {count}
+                  </div>
                 </div>
-              </div>
+              </Link>
               <span className="w-px h-8 bg-gray-200" />
               {!isLoggedIn ? (
                 <button

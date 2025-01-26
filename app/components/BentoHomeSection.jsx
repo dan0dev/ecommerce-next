@@ -10,10 +10,10 @@ const BentoHomeSection = () => {
     <section className="w-full py-4 px-4 sm:px-6 lg:px-0">
       <div className="max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Left Card */}
-          <div className="md:col-span-2 h-[500px] sm:h-[420px] rounded-3xl relative overflow-hidden bg-gradient-to-r from-[#92a38b] to-[#76a9c6] group transition-all duration-300 hover:shadow-lg">
+          {/* Left Card - Updated */}
+          <div className="md:col-span-2 h-[400px] sm:h-[420px] rounded-3xl relative overflow-hidden bg-gradient-to-r from-[#92a38b] to-[#76a9c6] group transition-all duration-300 hover:shadow-lg">
             {/* Main content container */}
-            <div className="absolute inset-0 p-6 sm:p-8 flex flex-col">
+            <div className="absolute inset-0 p-6 sm:p-8 flex flex-col z-10">
               {/* Top content */}
               <div className="flex justify-between items-start">
                 <h1 className="text-3xl sm:text-4xl md:text-6xl text-white font-bold tracking-tight">
@@ -49,18 +49,36 @@ const BentoHomeSection = () => {
               </div>
             </div>
 
-            {/* Product Image */}
-            <div className="absolute right-0 sm:right-24 bottom-0 w-2/3 sm:w-1/2 h-3/4 sm:h-full transition-transform duration-500 group-hover:scale-105">
-              <div className="relative h-full w-full">
-                <Image
-                  src={Background1Pic}
-                  alt="White hoodie"
-                  fill
-                  sizes="(max-width: 640px) 66vw, (max-width: 768px) 50vw, 33vw"
-                  quality={100}
-                  className="object-contain sm:object-cover object-bottom sm:object-center"
-                  priority
-                />
+            {/* Product Image - Updated */}
+            <div className="absolute inset-0">
+              {/* Mobile Image */}
+              <div className="md:hidden absolute inset-0 flex items-center justify-center">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={Background1Pic}
+                    alt="White hoodie"
+                    fill
+                    sizes="(max-width: 640px) 66vw, (max-width: 768px) 50vw, 33vw"
+                    quality={100}
+                    className="object-contain object-bottom blur-sm group-hover:blur-none transition-all duration-500"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Desktop Image */}
+              <div className="hidden md:block absolute right-0 sm:right-24 bottom-0 w-2/3 sm:w-1/2 h-3/4 sm:h-full transition-transform duration-500 group-hover:scale-105">
+                <div className="relative h-full w-full">
+                  <Image
+                    src={Background1Pic}
+                    alt="White hoodie"
+                    fill
+                    sizes="(max-width: 640px) 66vw, (max-width: 768px) 50vw, 33vw"
+                    quality={100}
+                    className="object-contain sm:object-cover object-bottom sm:object-center"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -21,8 +21,6 @@ const Footer = () => {
   };
 
   const renderNewsletterForm = () => {
-    if (!mounted) return null;
-
     return (
       <form onSubmit={handleSubmit} className="mt-4 flex justify-center">
         <div className="relative flex-1">
@@ -34,11 +32,13 @@ const Footer = () => {
             className="w-full px-4 py-2 border border-black/70 focus:outline-none focus:border-blue-500 rounded-md"
             required
           />
-          {isSubscribed && (
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500">
-              ✓
-            </span>
-          )}
+          <span
+            className={`absolute right-3 top-1/2 -translate-y-1/2 text-green-500 ${
+              isSubscribed ? "visible" : "invisible"
+            }`}
+          >
+            ✓
+          </span>
         </div>
         <button
           type="submit"
@@ -66,7 +66,11 @@ const Footer = () => {
             <a href="#" className="text-sm text-gray-600 underline">
               privacy policy
             </a>
-            {renderNewsletterForm()}
+            <div className="h-24">
+              {" "}
+              {/* Fixed height */}
+              {renderNewsletterForm()}
+            </div>
           </div>
           <div className="w-full flex flex-col items-center justify-center">
             <h3 className="font-medium text-sm mb-1">HELP US IMPROVE</h3>
@@ -84,17 +88,15 @@ const Footer = () => {
               <br />
               and Android
             </p>
-            {mounted && (
-              <div className="flex justify-center">
-                <Image
-                  src="/apple.png"
-                  alt="App Store"
-                  className="mt-2"
-                  width={82}
-                  height={82}
-                />
-              </div>
-            )}
+            <div className={`${!mounted ? "invisible" : ""}`}>
+              <Image
+                src="/apple.png"
+                alt="App Store"
+                className="mt-2"
+                width={82}
+                height={82}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -195,17 +197,19 @@ const Footer = () => {
             </ul>
           </div>
 
-          {mounted && (
-            <div className="text-center md:text-left">
-              <h4 className="font-medium text-sm mb-4">CONNECT</h4>
-              <div className="flex justify-center md:justify-start space-x-4">
-                <FaTiktok className="w-6 h-6 cursor-pointer hover:text-gray-300" />
-                <Youtube className="w-6 h-6 cursor-pointer hover:text-gray-300" />
-                <Instagram className="w-6 h-6 cursor-pointer hover:text-gray-300" />
-                <Facebook className="w-6 h-6 cursor-pointer hover:text-gray-300" />
-              </div>
+          <div
+            className={`text-center md:text-left ${
+              !mounted ? "invisible" : ""
+            }`}
+          >
+            <h4 className="font-medium text-sm mb-4">CONNECT</h4>
+            <div className="flex justify-center md:justify-start space-x-4">
+              <FaTiktok className="w-6 h-6 cursor-pointer hover:text-gray-300" />
+              <Youtube className="w-6 h-6 cursor-pointer hover:text-gray-300" />
+              <Instagram className="w-6 h-6 cursor-pointer hover:text-gray-300" />
+              <Facebook className="w-6 h-6 cursor-pointer hover:text-gray-300" />
             </div>
-          )}
+          </div>
         </div>
       </div>
 

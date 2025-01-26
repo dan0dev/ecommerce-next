@@ -459,3 +459,25 @@ export const COLLECTION_DATA = {
     },
   ],
 };
+
+export const colorMap = {
+  Orange: "#FF5733",
+  Black: "#000000",
+  Navy: "#000080",
+  "Gray Heather": "#9BA4B5",
+  Natural: "#F5DEB3",
+  Olive: "#808000",
+  "Light Gray": "#D3D3D3",
+  "Dusty Pink": "#FFB6C1",
+  White: "#FFFFFF",
+  Gray: "#808080",
+  Sage: "#9DC183",
+  Khaki: "#C3B091",
+  Yellow: "#FFFF00",
+  Forest: "#228B22",
+  "Forest Green": "#228B22",
+  Red: "#FF0000",
+  Brown: "#A52A2A",
+  Emerald: "#50C878",
+  Turquoise: "#40E0D0",
+};

@@ -1,9 +1,14 @@
-// product/[id]/page.jsx
 "use client";
 
 import { AnimatePresence } from "motion/react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Breadcrumb from "../../components/Breadcrumb"; // Import the Breadcrumb component
 import { COLLECTION_DATA } from "../../components/collection/collectionData";
 import Toast from "../../components/collection/Toast";
 import MiddleBanner from "../../components/MiddleBanner";
@@ -11,9 +16,10 @@ import PageTransition from "../../components/PageTransition";
 import { useCartStore } from "../../store/cartStore";
 
 export default function ProductPage({ params }) {
+  const router = useRouter();
   const addToCart = useCartStore((state) => state.addToCart);
 
-  // scroll to top
+  // Scrolling to the top of the page
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -24,21 +30,45 @@ export default function ProductPage({ params }) {
   const [selectedSize, setSelectedSize] = useState(null);
   const [clicked, setClicked] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if the device is mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Unwrapping params - React.use()
   const resolvedParams = use(params);
   const { id } = resolvedParams;
 
-  // flat
+  // Flat
   const allProducts = Object.values(COLLECTION_DATA).flat();
 
-  // dynamic id
+  // Dynamic id
   const product = allProducts.find((item) => item.id === parseInt(id));
 
   // Product not found!
   if (!product) {
     return <div>Product not found!</div>;
   }
+
+  const [defaultPrice, setDefaultPrice] = useState(product.price);
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    if (product.sizes && product.sizes.includes("One Size")) {
+      setSelectedSize("One Size");
+    }
+  }, [product.sizes]);
 
   const colorMap = {
     Orange: "#FF5733",
@@ -84,16 +114,48 @@ export default function ProductPage({ params }) {
   };
 
   const handleCheckout = () => {
-    window.location.href = "/checkout";
+    window.location.href = "/cart";
   };
 
   const handleCartClick = () => {
     if (clicked) return;
 
+    if (!selectedColor || !selectedSize) {
+      addToast(
+        "Please select a color and size before adding to cart.",
+        true,
+        "Error"
+      );
+      return;
+    }
+
+    // Check if the product with the same ID, color, and size already exists in the cart
+    const isProductInCart = useCartStore
+      .getState()
+      .items.some(
+        (item) =>
+          item.productId === product.id &&
+          item.color === selectedColor &&
+          item.size === selectedSize
+      );
+
+    if (isProductInCart) {
+      addToast(
+        `${product.name} (${selectedColor}, ${selectedSize}) is already in your cart.`,
+        true,
+        "Product Exists"
+      );
+      return;
+    }
+
     setClicked(true);
-    addToCart();
+    addToCart(product, {
+      size: selectedSize,
+      color: selectedColor,
+      quantity: quantity,
+    });
     addToast(
-      `${product.name} has been added to your cart.`,
+      `${product.name} (${selectedColor}, ${selectedSize}) has been added to your cart.`,
       false,
       "Added to Cart"
     );
@@ -103,120 +165,96 @@ export default function ProductPage({ params }) {
     }, 3000);
   };
 
+  const handleBuyNow = () => {
+    if (!selectedColor || !selectedSize) {
+      addToast("Please select a color and size before buying.", true, "Error");
+      return;
+    }
+
+    addToCart(product, {
+      size: selectedSize,
+      color: selectedColor,
+      quantity: quantity,
+    });
+    router.push("/cart");
+  };
+
   return (
     <PageTransition>
       <section className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Breadcrumb - nav*/}
-        <nav className="flex mb-4" aria-label="Breadcrumb">
-          <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-            <li className="inline-flex items-center">
-              <Link
-                href="/"
-                className="inline-flex items-center text-sm text-gray-700 hover:text-blue-600  :hover:text-white"
-              >
-                <svg
-                  className="w-3 h-3 me-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                </svg>
-                Home
-              </Link>
-            </li>
-            <li>
-              <div className="flex items-center">
-                <svg
-                  className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-                <Link
-                  href="/"
-                  className="ms-1 text-sm text-gray-700 hover:text-blue-600 md:ms-2"
-                >
-                  Products
-                </Link>
-              </div>
-            </li>
-            <li aria-current="page">
-              <div className="flex items-center">
-                <svg
-                  className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-                <span className="ms-1 text-sm text-gray-500 md:ms-2">
-                  {product.name}
-                </span>
-              </div>
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumb productName={product.name} />
         <div>
-          <div className="grid grid-cols-6 grid-rows-2 gap-4">
-            <div className="col-span-3 row-span-3">
-              <div className="relative h-[496px] bg-gray-300/30 rounded-3xl">
-                <img
-                  src={product.image || "/collection/defaultImage.png"}
-                  alt={product.name}
-                  className="object-contain rounded-lg w-full h-full"
-                />
+          {/* Swiper Carousel for Mobile */}
+          {isMobile ? (
+            <Swiper
+              modules={[Navigation, Pagination]}
+              spaceBetween={10}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+            >
+              {[product.image, product.image, product.image].map(
+                (img, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="relative h-64 bg-gray-300/30 rounded-3xl">
+                      <img
+                        src={img || "/collection/defaultImage.png"}
+                        alt={product.name}
+                        className="object-contain rounded-lg w-full h-full"
+                      />
+                    </div>
+                  </SwiperSlide>
+                )
+              )}
+            </Swiper>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-4">
+              <div className="md:col-span-3 md:row-span-3">
+                <div className="relative h-64 md:h-[496px] bg-gray-300/30 rounded-3xl">
+                  <img
+                    src={product.image || "/collection/defaultImage.png"}
+                    alt={product.name}
+                    className="object-contain rounded-lg w-full h-full"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-2 md:row-span-1">
+                <div className="relative h-60 bg-gray-300/30 rounded-3xl">
+                  <img
+                    src={product.image || "/collection/defaultImage.png"}
+                    alt={product.name}
+                    className="object-contain rounded-lg w-full h-full"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-1 md:row-span-1">
+                <div className="relative h-60 bg-gray-300/30 rounded-3xl">
+                  <img
+                    src={product.image || "/collection/defaultImage.png"}
+                    alt={product.name}
+                    className="object-contain rounded-lg w-full h-full"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-3 md:row-span-2">
+                <div className="relative h-60 bg-gray-300/30 rounded-3xl">
+                  <img
+                    src={product.image || "/collection/defaultImage.png"}
+                    alt={product.name}
+                    className="object-contain rounded-lg w-full h-full"
+                  />
+                </div>
               </div>
             </div>
-            <div className="col-span-2 row-span-1">
-              <div className="relative h-60 bg-gray-300/30 rounded-3xl">
-                <img
-                  src={product.image || "/collection/defaultImage.png"}
-                  alt={product.name}
-                  className="object-contain rounded-lg w-full h-full"
-                />
-              </div>
-            </div>
-            <div className="col-span-1 row-span-1">
-              <div className="relative h-60 bg-gray-300/30 rounded-3xl">
-                <img
-                  src={product.image || "/collection/defaultImage.png"}
-                  alt={product.name}
-                  className="object-contain rounded-lg w-full h-full"
-                />
-              </div>
-            </div>
-            <div className="col-span-3 row-span-2">
-              <div className="relative h-60 bg-gray-300/30 rounded-3xl">
-                <img
-                  src={product.image || "/collection/defaultImage.png"}
-                  alt={product.name}
-                  className="object-contain rounded-lg w-full h-full"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 mt-4">
+          )}
+
+          {/* Product Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div className="space-y-4">
-              <h1 className="uppercase text-3xl font-medium">{product.name}</h1>
+              <h1 className="uppercase text-2xl md:text-3xl font-medium">
+                {product.name}
+              </h1>
               <div className="flex items-center">
                 <span className="text-yellow-500 flex items-center">
                   {[...Array(5)].map((_, i) => {
@@ -265,7 +303,7 @@ export default function ProductPage({ params }) {
                         </defs>
                         <path
                           d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                          fill="currentColor"
+                          fill="orange" // Change this to red
                           clipPath={`url(#starClip-${i})`}
                         />
                       </svg>
@@ -276,9 +314,11 @@ export default function ProductPage({ params }) {
                   ({product.rating} from 328 Reviews)
                 </span>
               </div>
-              <div className="flex gap-12 items-start">
+              <div className="flex flex-col md:flex-row gap-12 items-start">
                 <div className="flex flex-col">
-                  <h3 className="text-lg font-medium mb-2">Select Color</h3>
+                  <h3 className="text-lg font-medium mb-2">
+                    Select Color <span className="text-red-600">*</span>
+                  </h3>
                   <div className="flex space-x-3 items-center">
                     {product.colors &&
                       product.colors.map((color) => (
@@ -308,7 +348,9 @@ export default function ProductPage({ params }) {
                 </div>
 
                 <div className="flex flex-col">
-                  <h3 className="text-lg font-medium mb-2">Select Size</h3>
+                  <h3 className="text-lg font-medium mb-2">
+                    Select Size <span className="text-red-600">*</span>
+                  </h3>
                   <div className="flex space-x-3">
                     {product.sizes &&
                       product.sizes.map((size) => (
@@ -316,12 +358,13 @@ export default function ProductPage({ params }) {
                           key={size}
                           type="button"
                           onClick={() => setSelectedSize(size)}
+                          disabled={selectedSize === "One Size"}
                           className={`
                           rounded-full text-sm font-medium flex items-center justify-center
                           transition-all duration-300 ease-in-out
                           ${
                             size === "One Size"
-                              ? "w-20 h-8"
+                              ? "w-20 h-8 cursor-not-allowed"
                               : size === "Large"
                               ? "w-16 h-12"
                               : "w-12 h-8"
@@ -341,24 +384,65 @@ export default function ProductPage({ params }) {
               </div>
             </div>
 
-            {/* --------------------------------------------- */}
-
-            <div className="space-y-2 flex flex-col justify-between h-full">
-              <p className="text-sm font-medium">Total Price</p>
-              <h1 className="text-4xl font-bold">${product.price}</h1>
-
-              <div className="flex justify-between mt-4">
-                <button
-                  className="flex-1 uppercase text-base border border-black py-3 rounded-full mr-2 hover:bg-black/10 transition-colors duration-300"
-                  onClick={handleCartClick}
-                  disabled={clicked}
-                >
-                  {clicked ? "Added!" : "Add to Cart"}
-                </button>
-                <button className="flex-1 uppercase text-base border bg-black text-white py-2 rounded-full ml-2 hover:bg-black/70 transition-colors duration-300">
-                  Buy It Now
-                </button>
+            {/* Price and Quantity Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 h-full">
+              {/* Total Price */}
+              <div className="flex flex-col space-y-2">
+                <p className="text-sm font-medium">Total Price</p>
+                <h1 className="text-3xl md:text-4xl font-bold">
+                  ${defaultPrice}
+                </h1>
               </div>
+
+              {/* Quantity */}
+              <div className="flex flex-col items-end space-y-2">
+                <p className="text-sm font-medium">Quantity</p>
+                <div className="flex items-center gap-4">
+                  <button
+                    className="bg-black text-white rounded-full w-10 h-10 flex items-center justify-center disabled:bg-black/90 disabled:cursor-not-allowed"
+                    onClick={() => {
+                      if (quantity > 1) {
+                        setQuantity(quantity - 1);
+                        setDefaultPrice(
+                          (prevPrice) => prevPrice - product.price
+                        );
+                      }
+                    }}
+                    disabled={quantity <= 1} // Disabled if quantity <= 1
+                  >
+                    –
+                  </button>
+                  <h1 className="text-3xl md:text-4xl font-bold">{quantity}</h1>
+                  <button
+                    className="bg-black text-white rounded-full w-10 h-10 flex items-center justify-center"
+                    onClick={() => {
+                      setQuantity(quantity + 1);
+                      setDefaultPrice((prevPrice) => prevPrice + product.price);
+                    }}
+                    disabled={quantity === 10}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              {/* Add to Cart Btn */}
+              <button
+                className="uppercase text-base border border-black py-3 rounded-full hover:bg-black/10 transition-colors duration-300"
+                onClick={handleCartClick}
+                disabled={clicked || !selectedColor || !selectedSize}
+              >
+                {clicked ? "Added!" : "Add to Cart"}
+              </button>
+
+              {/* Buy It Now Btn */}
+              <button
+                onClick={handleBuyNow}
+                className="uppercase text-base border bg-black text-white py-3 rounded-full hover:bg-black/70 transition-colors duration-300"
+                disabled={!selectedColor || !selectedSize}
+              >
+                Buy It Now
+              </button>
             </div>
           </div>
         </div>
