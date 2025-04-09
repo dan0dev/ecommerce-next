@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). A frontend e-commerce application built with Next.js and Tailwind CSS. Uses Zustand for state management, featuring shopping cart functionality and dynamic [id] product pages.
+##
 
 ## Getting Started
 
